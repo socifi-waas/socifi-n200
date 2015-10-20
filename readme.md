@@ -14,7 +14,7 @@ composer require socifi/n200
 
 Please note you need to add custom repository to your `composer.json` file for now:
 
-```sh
+```json
 {
     ...
     "repositories": [
@@ -31,6 +31,8 @@ Please note you need to add custom repository to your `composer.json` file for n
 ### Initialize the N200 library
 
 ```php
+<?php
+
 use Socifi\N200 as N200;
 
 // ...
@@ -41,6 +43,8 @@ $n200 = new N200\N200('the-api-key');
 ### Using resource classes
 
 ```php
+<?php
+
 // Pass $n200 object that you initialized before.
 // It contains authentication details and API setup.
 $events = new N200\Events($n200);
@@ -56,6 +60,8 @@ You will have to call the `event/$code` to get event details.
 Please note that only arrays are returned instead of VOs using those methods.
 
 ```php
+<?php
+
 $eventCodes = $n200->get('events');
 
 $event1 = $n200->get('events/' . $eventCodes[0]['code']);
