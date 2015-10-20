@@ -4,9 +4,12 @@ namespace Socifi\N200\VO;
 
 abstract class AbstractVO
 {
-
     /**
-     * N200AbstractVO constructor.
+     * Abstract VO
+     *
+     * Enables automatic hydration from optional array passed as parameter.
+     *
+     * @param array|null $toHydrate Optional data to automatically hydrate to VO.
      */
     public function __construct($toHydrate = null)
     {
@@ -24,24 +27,29 @@ abstract class AbstractVO
             if (method_exists($this, $methodName)) {
                 call_user_func([$this, $methodName], $value);
             }
-
         }
     }
 
-    private function toCamelCase($key)
+    /**
+     * Convert string-value to camelCase
+     *
+     * @param string $string Dash separated string
+     * @return array|string camelCased string
+     */
+    private function toCamelCase($string)
     {
-        $key = explode('-', $key);
+        $elements = explode('-', $string);
 
-        if (!is_array($key)) {
-            return $key;
+        if (!is_array($elements)) {
+            return $string;
         }
 
-        $keyCount = count($key);
+        $elementCount = count($elements);
 
-        for ($i = 1; $i < $keyCount; $i ++) {
-            $key[$i] = ucfirst($key[$i]);
+        for ($i = 1; $i < $elementCount; $i ++) {
+            $elements[$i] = ucfirst($elements[$i]);
         }
 
-        return implode('', $key);
+        return implode('', $elements);
     }
 }

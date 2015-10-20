@@ -67,7 +67,7 @@ class EventVO extends AbstractVO
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
     public function getStart()
     {
@@ -90,7 +90,7 @@ class EventVO extends AbstractVO
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
     public function getEnd()
     {
@@ -98,7 +98,7 @@ class EventVO extends AbstractVO
     }
 
     /**
-     * @param string $end
+     * @param \DateTime|string $end
      * @return $this
      */
     public function setEnd($end)
