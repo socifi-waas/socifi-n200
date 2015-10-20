@@ -9,14 +9,13 @@ PHP library for [N200](http://www.n200.com/) API.
 The SOCIFI N200 can be installed with [Composer](https://getcomposer.org/). Run this command:
 
 ```sh
-composer require socifi/n200
+composer require socifi/n200:@dev
 ```
 
 Please note you need to add custom repository to your `composer.json` file for now:
 
 ```json
 {
-    ...
     "repositories": [
         {
             "type": "vcs",
