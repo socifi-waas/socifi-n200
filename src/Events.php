@@ -3,6 +3,7 @@
 namespace Socifi\N200;
 
 use Socifi\N200\Exceptions\AuthenticationException;
+use Socifi\N200\Exceptions\AuthorizationException;
 use Socifi\N200\Exceptions\NotFoundException;
 use Socifi\N200\Exceptions\RequestException;
 use Socifi\N200\Exceptions\ResponseException;
@@ -30,7 +31,8 @@ class Events
      * Get all events and their details
      *
      * @return EventVO[]
-     * @throws AuthenticationException on invalid credentials. Wrong API Key.
+     * @throws AuthorizationException on invalid credentials. Wrong API Key.
+     * @throws AuthenticationException when user does not have permissions to given resource.
      * @throws RequestException on invalid request. E.g. unsupported http method.
      * @throws ResponseException on invalid or malformed response. E.g. can not parse the response.
      * @throws NotFoundException when events endpoint resource not found.
@@ -58,7 +60,8 @@ class Events
      * Get Event codes
      *
      * @return array|null
-     * @throws AuthenticationException on invalid credentials. Wrong API Key.
+     * @throws AuthorizationException on invalid credentials. Wrong API Key.
+     * @throws AuthenticationException when user does not have permissions to given resource.
      * @throws RequestException on invalid request. E.g. unsupported http method.
      * @throws ResponseException on invalid or malformed response. E.g. can not parse the response.
      * @throws NotFoundException when requested item not found.
@@ -89,7 +92,8 @@ class Events
      *
      * @param $code
      * @return EventVO|null
-     * @throws AuthenticationException on invalid credentials. Wrong API Key.
+     * @throws AuthorizationException on invalid credentials. Wrong API Key.
+     * @throws AuthenticationException when user does not have permissions to given resource.
      * @throws RequestException on invalid request. E.g. unsupported http method.
      * @throws ResponseException on invalid or malformed response. E.g. can not parse the response.
      * @throws NotFoundException when requested item not found.

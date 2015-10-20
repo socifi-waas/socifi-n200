@@ -3,6 +3,7 @@
 namespace Socifi\N200;
 
 use Socifi\N200\Exceptions\AuthenticationException;
+use Socifi\N200\Exceptions\AuthorizationException;
 use Socifi\N200\Exceptions\NotFoundException;
 use Socifi\N200\Exceptions\RequestException;
 use Socifi\N200\Exceptions\ResponseException;
@@ -11,6 +12,7 @@ class N200
 {
     const HTTP_METHOD_GET = 'GET';
 
+    const HTTP_UNAUTHORIZED = 401;
     const HTTP_FORBIDDEN = 403;
     const HTTP_NOT_FOUND = 404;
 
@@ -43,7 +45,8 @@ class N200
      *
      * @param string $endpoint
      * @return array|null
-     * @throws AuthenticationException on invalid credentials. Wrong API Key.
+     * @throws AuthorizationException on invalid credentials. Wrong API Key.
+     * @throws AuthenticationException when user does not have permissions to given resource.
      * @throws RequestException on invalid request. E.g. unsupported http method.
      * @throws ResponseException on invalid or malformed response. E.g. can not parse the response.
      * @throws NotFoundException when requested item not found.
@@ -60,7 +63,8 @@ class N200
      * @param string $endpoint
      *
      * @return array|null
-     * @throws AuthenticationException on invalid credentials. Wrong API Key.
+     * @throws AuthorizationException on invalid credentials. Wrong API Key.
+     * @throws AuthenticationException when user does not have permissions to given resource.
      * @throws RequestException on invalid request. E.g. unsupported http method.
      * @throws ResponseException on invalid or malformed response. E.g. can not parse the response.
      * @throws NotFoundException when requested item not found.
@@ -85,8 +89,10 @@ class N200
         $response = curl_exec($ch);
         $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        if ($responseCode === self::HTTP_FORBIDDEN) {
-            throw new AuthenticationException('Unable to authenticate user. Probably bad API Key.');
+        if ($responseCode === self::HTTP_UNAUTHORIZED) {
+            throw new AuthorizationException('Unable to authenticate user. Probably bad API Key.');
+        } elseif ($responseCode === self::HTTP_FORBIDDEN) {
+            throw new AuthenticationException('Not allowed to access given resource ['.$endpoint.'].');
         } elseif ($responseCode === self::HTTP_NOT_FOUND) {
             throw new NotFoundException('Resource not found ['.$endpoint.'].');
         }
