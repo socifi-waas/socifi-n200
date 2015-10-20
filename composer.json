@@ -1,0 +1,23 @@
+{
+    "name": "socifi/n200",
+    "description": "SDK for N200 API",
+    "type": "library",
+    "license": "proprietary",
+    "keywords": ["n200", "n200 visit", "n200 connect", "api"],
+    "authors": [
+        {
+            "name": "Jiří Šimeček",
+            "email": "jirka@simecek.org",
+            "homepage": "http://www.socifi.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Socifi\\N200\\": "src"
+        }
+    }
+}
