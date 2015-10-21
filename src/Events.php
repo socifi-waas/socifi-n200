@@ -39,15 +39,15 @@ class Events
      */
     public function getAll()
     {
-        if (!$eventIDs = $this->getCodes()) {
+        if (!$eventList = $this->getList()) {
             return null;
         }
 
         $events = [];
 
-        foreach ($eventIDs as $eventID) {
+        foreach ($eventList as $code => $name) {
             try {
-                $events[] = $this->get($eventID);
+                $events[] = $this->get($code);
             } catch (NotFoundException $e) {
                 continue;
             }
@@ -57,7 +57,7 @@ class Events
     }
 
     /**
-     * Get Event codes
+     * Get list of event codes and their names
      *
      * @return array|null
      * @throws AuthorizationException on invalid credentials. Wrong API Key.
@@ -66,25 +66,25 @@ class Events
      * @throws ResponseException on invalid or malformed response. E.g. can not parse the response.
      * @throws NotFoundException when requested item not found.
      */
-    public function getCodes()
+    public function getList()
     {
-        $eventsResponse = $this->n200->get(self::ENDPOINT);
+        $eventsResponse = $this->n200->get(self::ENDPOINT.'?showname=1');
 
         if (!array_key_exists('event', $eventsResponse) || !is_array($eventsResponse['event'])) {
             return null;
         }
 
-        $eventCodes = [];
+        $list = [];
 
         foreach ($eventsResponse['event'] as $event) {
-            if (!array_key_exists('code', $event)) {
+            if (!array_key_exists('code', $event) || !array_key_exists('name', $event)) {
                 continue;
             }
 
-            $eventCodes[] = $event['code'];
+            $list[$event['code']] = $event['name'];
         }
 
-        return $eventCodes;
+        return $list;
     }
 
     /**
