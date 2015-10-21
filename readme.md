@@ -94,3 +94,24 @@ $isRegisteredOnEvent = $visitors->isVisitorRegisteredOnEvent(
 ); // => bool
 
 ```
+
+### Get visitors addresses
+
+Exception catching is removed for brevity.
+
+```php
+<?php
+
+use Socifi\N200 as N200;
+
+// ...
+
+$visitors = new N200\Visitors(new N200\N200('the-api-key'));
+
+$visitor = $visitors->get('visitor-code');
+$contact = $contacts->get($visitor->getContact()->getCode());
+
+$addresses = $contact->getAddresses(); // => array of AddressVO
+        
+
+```

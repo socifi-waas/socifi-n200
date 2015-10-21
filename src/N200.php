@@ -8,6 +8,13 @@ use Socifi\N200\Exceptions\NotFoundException;
 use Socifi\N200\Exceptions\RequestException;
 use Socifi\N200\Exceptions\ResponseException;
 
+/**
+ * Basic class for N200 API
+ *
+ * Used for requesting the API and handling the authentication.
+ *
+ * @package Socifi\N200
+ */
 class N200
 {
     const HTTP_METHOD_GET = 'GET';

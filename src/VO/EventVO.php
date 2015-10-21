@@ -2,6 +2,13 @@
 
 namespace Socifi\N200\VO;
 
+/**
+ * Event VO
+ *
+ * Provides getters and setters for Event object.
+ *
+ * @package Socifi\N200\VO
+ */
 class EventVO extends AbstractVO
 {
     /**
@@ -84,12 +91,13 @@ class EventVO extends AbstractVO
      */
     public function setStart($start)
     {
-        if ($start instanceof \DateTime) {
-            $this->start = $start;
-        } else {
+        if (is_string($start)) {
             $this->start = \DateTime::createFromFormat('Y-m-d H:i:s', $start);
-        }
 
+        } elseif ($start instanceof \DateTime) {
+            $this->start = $start;
+        }
+        
         return $this;
     }
 
@@ -107,10 +115,11 @@ class EventVO extends AbstractVO
      */
     public function setEnd($end)
     {
-        if ($end instanceof \DateTime) {
-            $this->end = $end;
-        } else {
+        if (is_string($end)) {
             $this->end = \DateTime::createFromFormat('Y-m-d H:i:s', $end);
+
+        } elseif ($end instanceof \DateTime) {
+            $this->end = $end;
         }
 
         return $this;

@@ -9,23 +9,14 @@ use Socifi\N200\Exceptions\RequestException;
 use Socifi\N200\Exceptions\ResponseException;
 use Socifi\N200\VO\VisitorVO;
 
-class Visitors
+/**
+ * Visitors resource
+ *
+ * @package Socifi\N200
+ */
+class Visitors extends AbstractResource
 {
     const ENDPOINT = 'visitors';
-
-    /**
-     * @var N200
-     */
-    private $n200;
-
-    /**
-     * N200 Visitors constructor.
-     * @param N200 $n200
-     */
-    public function __construct($n200)
-    {
-        $this->n200 = $n200;
-    }
 
     /**
      * Get list of event codes and their names

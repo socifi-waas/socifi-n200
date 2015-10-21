@@ -2,6 +2,13 @@
 
 namespace Socifi\N200\VO;
 
+/**
+ * Basic VO class that handle common things
+ *
+ * Enables dehydratation of raw data array of given item.
+ *
+ * @package Socifi\N200\VO
+ */
 abstract class AbstractVO
 {
     /**

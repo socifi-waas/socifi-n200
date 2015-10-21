@@ -2,6 +2,13 @@
 
 namespace Socifi\N200\VO;
 
+/**
+ * Visitor VO
+ *
+ * Provides getters and setters for Visitor object.
+ *
+ * @package Socifi\N200\VO
+ */
 class VisitorVO extends AbstractVO
 {
     const STATE_REGISTERED = 'registered';
@@ -421,13 +428,13 @@ class VisitorVO extends AbstractVO
             $contact = array_shift($contact);
         }
 
-        $this->contact = $contact;
+        $this->contact = new ContactVO($contact);
 
         return $this;
     }
 
     /**
-     * @return array
+     * @return ContactVO
      */
     public function getContact()
     {

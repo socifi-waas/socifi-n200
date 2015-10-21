@@ -9,23 +9,14 @@ use Socifi\N200\Exceptions\RequestException;
 use Socifi\N200\Exceptions\ResponseException;
 use Socifi\N200\VO\EventVO;
 
-class Events
+/**
+ * Events resource
+ *
+ * @package Socifi\N200
+ */
+class Events extends AbstractResource
 {
     const ENDPOINT = 'events';
-
-    /**
-     * @var N200
-     */
-    private $n200;
-
-    /**
-     * N200 Events constructor.
-     * @param N200 $n200
-     */
-    public function __construct($n200)
-    {
-        $this->n200 = $n200;
-    }
 
     /**
      * Get all events and their details
