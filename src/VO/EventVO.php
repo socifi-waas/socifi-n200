@@ -4,31 +4,35 @@ namespace Socifi\N200\VO;
 
 class EventVO extends AbstractVO
 {
-    private $code;
+    /**
+     * @var string Name
+     */
     private $name;
+
+    /**
+     * @var string Description
+     */
     private $description;
+
+    /**
+     * @var \DateTime Event start
+     */
     private $start;
+
+    /**
+     * @var \DateTime Event ends
+     */
     private $end;
+
+    /**
+     * @var string Contact email in raw format "John Does<example.com>"
+     */
     private $contactEmail;
+
+    /**
+     * @var mixed Unknown
+     */
     private $reference;
-
-    /**
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
-     * @param string $code
-     * @return $this
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-        return $this;
-    }
 
     /**
      * @return string

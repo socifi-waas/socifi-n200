@@ -3,6 +3,9 @@
 
 PHP library for [N200](http://www.n200.com/) API.
 
+## Limitations
+
+The library currently support only read access to `Visitors` and `Events` resources.
 
 ## Installation
 
@@ -66,4 +69,28 @@ $eventCodes = $n200->get('events');
 $event1 = $n200->get('events/' . $eventCodes[0]['code']);
 ```
 
-Do not forget to catch exceptions!
+## Cookbook
+
+### Checking that visitor is registered on particular event
+
+```php
+<?php
+
+use Socifi\N200 as N200;
+
+// ...
+
+$visitors = new N200\Visitors(new N200\N200('the-api-key'));
+
+try {
+    $visitor = $visitors->get('visitor-code');
+} catch (...) {
+    // Catch the exceptions (E.g. visitor not found)
+}
+
+$isRegisteredOnEvent = $visitors->isVisitorRegisteredOnEvent(
+    $visitor,
+    'event-code'
+); // => bool
+
+```

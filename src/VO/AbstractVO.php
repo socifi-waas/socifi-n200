@@ -5,6 +5,28 @@ namespace Socifi\N200\VO;
 abstract class AbstractVO
 {
     /**
+     * @var string Resource unique code (ID)
+     */
+    private $code;
+
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+    /**
+     * @param string $code
+     * @return $this
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+        return $this;
+    }
+
+    /**
      * Abstract VO
      *
      * Enables automatic hydration from optional array passed as parameter.
