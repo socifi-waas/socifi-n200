@@ -68,7 +68,7 @@ class Events
      */
     public function getList()
     {
-        $eventsResponse = $this->n200->get(self::ENDPOINT.'?showname=1');
+        $eventsResponse = $this->n200->get(self::ENDPOINT);
 
         if (!array_key_exists('event', $eventsResponse) || !is_array($eventsResponse['event'])) {
             return null;
@@ -77,11 +77,11 @@ class Events
         $list = [];
 
         foreach ($eventsResponse['event'] as $event) {
-            if (!array_key_exists('code', $event) || !array_key_exists('name', $event)) {
+            if (!array_key_exists('code', $event)) {
                 continue;
             }
 
-            $list[$event['code']] = $event['name'];
+            $list[$event['code']] = array_key_exists('name', $event) ? $event['name'] : null;
         }
 
         return $list;

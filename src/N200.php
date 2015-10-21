@@ -19,12 +19,22 @@ class N200
     /**
      * @var string Base API Uri
      */
-    private $baseUri = 'https://api.n200.com/';
+    private $baseUri;
 
     /**
      * @var string N200 API Key
      */
     private $apiKey;
+
+    /**
+     * @var bool Default query param to show also resource names (not just code)
+     */
+    private $showname;
+
+    /**
+     * @var integer Default query param for record limit (paginating) [1-100]
+     */
+    private $limit;
 
     /**
      * N200 constructor.
@@ -35,9 +45,17 @@ class N200
     {
         $this->apiKey = $apiKey;
 
-        if (array_key_exists('baseUri', $options)) {
-            $this->baseUri = $options['baseUri'];
-        }
+        $defaultOptions = [
+            'baseUri' => 'https://api.n200.com/',
+            'showname' => true,
+            'limit' => 100,
+        ];
+
+        $options = array_merge($defaultOptions, $options);
+
+        $this->baseUri = $options['baseUri'];
+        $this->showname = $options['showname'];
+        $this->limit = $options['limit'];
     }
 
     /**
@@ -61,6 +79,7 @@ class N200
      *
      * @param string $method
      * @param string $endpoint
+     * @param array $queryParams Optional query params
      *
      * @return array|null
      * @throws AuthorizationException on invalid credentials. Wrong API Key.
@@ -69,11 +88,19 @@ class N200
      * @throws ResponseException on invalid or malformed response. E.g. can not parse the response.
      * @throws NotFoundException when requested item not found.
      */
-    public function sendRequest($method, $endpoint)
+    public function sendRequest($method, $endpoint, array $queryParams = [])
     {
         if ($method !== self::HTTP_METHOD_GET) {
             throw new RequestException('Only GET supported at this time.');
         }
+
+        $defaultParams = [
+            'limit' => $this->limit,
+            'showname' => $this->showname,
+        ];
+
+        $queryParams = array_merge($defaultParams, $queryParams);
+        $endpoint .=  '?' . http_build_query($queryParams);
 
         $curlOptions = [
             CURLOPT_URL => $this->baseUri.$endpoint,
