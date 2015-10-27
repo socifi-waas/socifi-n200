@@ -106,7 +106,10 @@ use Socifi\N200 as N200;
 
 // ...
 
-$visitors = new N200\Visitors(new N200\N200('the-api-key'));
+$n200 = new N200\N200('the-api-key');
+
+$visitors = new N200\Visitors($n200);
+$contacts = new N200\Contacts($n200);
 
 $visitor = $visitors->get('visitor-code');
 $contact = $contacts->get($visitor->getContact()->getCode());
